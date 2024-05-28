@@ -1,3 +1,4 @@
+import 'package:chat_app/generator/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -105,8 +106,30 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Image(
+                    image: Assets.packages.common.assets.images.chatting
+                        .provider(),
+                  ),
+                ),
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Image(
+                    image: Assets.packages.common.assets.images.datingApp
+                        .provider(),
+                  ),
+                ),
+              ],
+            ),
             const Text(
-              'You have pushed the button this many times:',
+              'You have pushed the button this',
             ),
             Text(
               '$_counter',
