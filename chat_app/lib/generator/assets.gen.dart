@@ -38,12 +38,16 @@ class $PackagesCommonAssetsImagesGen {
   AssetGenImage get chatting =>
       const AssetGenImage('packages/common/assets/images/chatting.png');
 
-  /// File path: packages/common/assets/images/dating-app.png
-  AssetGenImage get datingApp =>
-      const AssetGenImage('packages/common/assets/images/dating-app.png');
+  /// File path: packages/common/assets/images/emoji.png
+  AssetGenImage get emoji =>
+      const AssetGenImage('packages/common/assets/images/emoji.png');
+
+  /// File path: packages/common/assets/images/google.png
+  AssetGenImage get google =>
+      const AssetGenImage('packages/common/assets/images/google.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [chatting, datingApp];
+  List<AssetGenImage> get values => [chatting, emoji, google];
 }
 
 class Assets {
