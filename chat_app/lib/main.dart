@@ -1,12 +1,20 @@
 import 'package:chat_app/firebase_options.dart';
-import 'package:chat_app/pages/auth/login_page.dart';
+import 'package:chat_app/pages/animation_login/animation_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 late Size mq;
 void main() {
-  _initializeFirebase();
-  runApp(const MyApp());
+  WidgetsFlutterBinding();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then(
+    (value) {
+      _initializeFirebase();
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +36,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
         ),
       ),
-      home: const LoginPage(),
+      home: const AnimationPage(),
     );
   }
 }
