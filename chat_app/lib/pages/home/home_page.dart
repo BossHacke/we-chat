@@ -1,6 +1,6 @@
 import 'package:chat_app/apis/api.dart';
 import 'package:chat_app/main.dart';
-import 'package:chat_app/model/chat_user.dart';
+import 'package:chat_app/model/model.dart';
 import 'package:chat_app/pages/profile/profile_page.dart';
 import 'package:chat_app/widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';

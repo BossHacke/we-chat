@@ -34,6 +34,10 @@ class $PackagesCommonAssetsGen {
 class $PackagesCommonAssetsImagesGen {
   const $PackagesCommonAssetsImagesGen();
 
+  /// File path: packages/common/assets/images/camera.png
+  AssetGenImage get camera =>
+      const AssetGenImage('packages/common/assets/images/camera.png');
+
   /// File path: packages/common/assets/images/chatting.png
   AssetGenImage get chatting =>
       const AssetGenImage('packages/common/assets/images/chatting.png');
@@ -42,12 +46,16 @@ class $PackagesCommonAssetsImagesGen {
   AssetGenImage get emoji =>
       const AssetGenImage('packages/common/assets/images/emoji.png');
 
+  /// File path: packages/common/assets/images/gallery.png
+  AssetGenImage get gallery =>
+      const AssetGenImage('packages/common/assets/images/gallery.png');
+
   /// File path: packages/common/assets/images/google.png
   AssetGenImage get google =>
       const AssetGenImage('packages/common/assets/images/google.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [chatting, emoji, google];
+  List<AssetGenImage> get values => [camera, chatting, emoji, gallery, google];
 }
 
 class Assets {

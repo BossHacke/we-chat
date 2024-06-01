@@ -19,6 +19,8 @@ dependencies:
   equatable: ^2.0.5
   json_serializable: ^6.8.0
   cached_network_image: ^3.3.1
+  image_picker: ^1.1.2
+  firebase_storage: ^11.7.7
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

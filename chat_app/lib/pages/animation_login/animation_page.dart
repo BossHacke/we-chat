@@ -23,7 +23,8 @@ class _AnimationPageState extends State<AnimationPage> {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
         SystemChrome.setSystemUIOverlayStyle(
           const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.white,
+            statusBarColor: Colors.white,
           ),
         );
         if (Apis.auth.currentUser != null) {
