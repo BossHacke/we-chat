@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-// ignore: depend_on_referenced_packages
-import 'package:json_annotation/json_annotation.dart';
-part 'chat_user.g.dart';
+part of '../model.dart';
 
 @JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
