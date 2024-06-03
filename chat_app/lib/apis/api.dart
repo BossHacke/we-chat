@@ -186,43 +186,43 @@ class Apis {
   }
 
   // for sending push notification (Updated Codes)
-  static Future<void> sendPushNotification(
-      ChatUser chatUser, String msg) async {
-    try {
-      final body = {
-        "message": {
-          "token": chatUser.pushToken,
-          "notification": {
-            "title": me.name, //our name should be send
-            "body": msg,
-          },
-        }
-      };
+  // static Future<void> sendPushNotification(
+  //     ChatUser chatUser, String msg) async {
+  //   try {
+  //     final body = {
+  //       "message": {
+  //         "token": chatUser.pushToken,
+  //         "notification": {
+  //           "title": me.name, //our name should be send
+  //           "body": msg,
+  //         },
+  //       }
+  //     };
 
-      // Firebase Project > Project Settings > General Tab > Project ID
-      const projectID = 'we-chat-75f13';
+  //     // Firebase Project > Project Settings > General Tab > Project ID
+  //     const projectID = 'we-chat-75f13';
 
-      // get firebase admin token
-      final bearerToken = await NotificationAccessToken.getToken;
+  //     // get firebase admin token
+  //     final bearerToken = await NotificationAccessToken.getToken;
 
-      // handle null token
-      if (bearerToken == null) return;
+  //     // handle null token
+  //     if (bearerToken == null) return;
 
-      var res = await post(
-        Uri.parse(
-            'https://fcm.googleapis.com/v1/projects/$projectID/messages:send'),
-        headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-          HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
-        },
-        body: jsonEncode(body),
-      );
+  //     var res = await post(
+  //       Uri.parse(
+  //           'https://fcm.googleapis.com/v1/projects/$projectID/messages:send'),
+  //       headers: {
+  //         HttpHeaders.contentTypeHeader: 'application/json',
+  //         HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
+  //       },
+  //       body: jsonEncode(body),
+  //     );
 
-      log('Response body: ${res.body}');
-    } catch (e) {
-      log('\nsendPushNotificationE: $e');
-    }
-  }
+  //     log('Response body: ${res.body}');
+  //   } catch (e) {
+  //     log('\nsendPushNotificationE: $e');
+  //   }
+  // }
 
   //update read status of message
   static Future<void> updateMessageReadStatus(Message message) async {
