@@ -1,8 +1,9 @@
 part of '../model.dart';
 
 @JsonSerializable(explicitToJson: true)
+// ignore: must_be_immutable
 class Message extends Equatable {
-  const Message({
+  Message({
     required this.toId,
     required this.fromId,
     required this.msg,
@@ -13,17 +14,17 @@ class Message extends Equatable {
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
   @JsonKey(name: 'toId')
-  final String? toId;
+  late String toId;
   @JsonKey(name: 'msg')
-  final String? msg;
+  late String msg;
   @JsonKey(name: 'read')
-  final String? read;
+  late String read;
   @JsonKey(name: 'type')
-  final Type? type;
+  late Type type;
   @JsonKey(name: 'fromId')
-  final String? fromId;
+  late String fromId;
   @JsonKey(name: 'sent')
-  final String? sent;
+  late String sent;
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 
   @override

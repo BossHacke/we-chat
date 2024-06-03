@@ -7,6 +7,7 @@ import 'package:chat_app/generator/assets.gen.dart';
 import 'package:chat_app/helper/dialogs.dart';
 import 'package:chat_app/model/model.dart';
 import 'package:chat_app/pages/auth/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -40,6 +41,9 @@ class _ProfilePageState extends State<ProfilePage> {
             backgroundColor: Colors.red,
             onPressed: () async {
               Dialogs.showProgressBar(context);
+
+              await Apis.updateActiveStatus(false);
+
               await Apis.auth.signOut().then(
                 (value) async {
                   await GoogleSignIn().signOut().then(
@@ -48,6 +52,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.pop(context);
                       //for moving to homepage
                       Navigator.pop(context);
+
+                      Apis.auth = FirebaseAuth.instance;
+
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -97,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fit: BoxFit.cover,
                                   width: mq.height * .2,
                                   height: mq.height * .2,
-                                  imageUrl: widget.user.image!,
+                                  imageUrl: widget.user.image,
                                   placeholder: (context, url) =>
                                       const CircularProgressIndicator(),
                                   //spell:ignore Cupertino
@@ -128,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: mq.height * .03,
                     ),
                     Text(
-                      widget.user.email!,
+                      widget.user.email,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,

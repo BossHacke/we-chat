@@ -18,23 +18,23 @@ class ChatUser extends Equatable {
   factory ChatUser.fromJson(Map<String, dynamic> json) =>
       _$ChatUserFromJson(json);
   @JsonKey(name: 'id')
-  late String? id;
+  late String id;
   @JsonKey(name: 'name')
-  late String? name;
+  late String name;
   @JsonKey(name: 'image')
-  late String? image;
+  late String image;
   @JsonKey(name: 'about')
-  late String? about;
+  late String about;
   @JsonKey(name: 'createdAt')
-  late String? createdAt;
+  late String createdAt;
   @JsonKey(name: 'isOnline')
   late bool isOnline;
   @JsonKey(name: 'lastActive')
-  late String? lastActive;
+  late String lastActive;
   @JsonKey(name: 'email')
-  late String? email;
+  late String email;
   @JsonKey(name: 'pushToken')
-  late String? pushToken;
+  late String pushToken;
   Map<String, dynamic> toJson() => _$ChatUserToJson(this);
 
   @override

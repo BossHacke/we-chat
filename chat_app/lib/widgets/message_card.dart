@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/apis/api.dart';
 import 'package:chat_app/helper/my_date.dart';
 import 'package:chat_app/main.dart';
@@ -22,14 +23,17 @@ class _MessageCardState extends State<MessageCard> {
 
   //sender or another user message
   Widget _blueMessage() {
-    if (widget.message.read!.isEmpty) {
+    if (widget.message.read.isEmpty) {
       Apis.updateMessageReadStatus(widget.message);
     }
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           child: Container(
-            padding: EdgeInsets.all(mq.width * .04),
+            padding: EdgeInsets.all(widget.message.type == Type.text
+                ? mq.width * .03
+                : mq.width * .04),
             margin: EdgeInsets.symmetric(
               vertical: mq.height * .01,
               horizontal: mq.width * .04,
@@ -44,14 +48,33 @@ class _MessageCardState extends State<MessageCard> {
                 bottomRight: Radius.circular(30),
               ),
             ),
-            child: Text(widget.message.msg!),
+            child: widget.message.type == Type.text
+                ? Text(widget.message.msg)
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.message.msg,
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      //spell:ignore Cupertino
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.image,
+                        size: 70,
+                      ),
+                    ),
+                  ),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(right: mq.width * .04),
           child: Text(
             MyDate.getFormattedTime(
-                context: context, time: widget.message.sent!),
+                context: context, time: widget.message.sent),
             style: const TextStyle(
               fontSize: 13,
               color: Colors.black54,
@@ -65,6 +88,7 @@ class _MessageCardState extends State<MessageCard> {
   //out or user message
   Widget _greenMessage() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
@@ -81,7 +105,7 @@ class _MessageCardState extends State<MessageCard> {
             ),
             Text(
               MyDate.getFormattedTime(
-                  context: context, time: widget.message.sent!),
+                  context: context, time: widget.message.sent),
               style: const TextStyle(
                 fontSize: 13,
                 color: Colors.black54,
@@ -91,7 +115,9 @@ class _MessageCardState extends State<MessageCard> {
         ),
         Flexible(
           child: Container(
-            padding: EdgeInsets.all(mq.width * .04),
+            padding: EdgeInsets.all(widget.message.type == Type.text
+                ? mq.width * .03
+                : mq.width * .04),
             margin: EdgeInsets.symmetric(
               vertical: mq.height * .01,
               horizontal: mq.width * .04,
@@ -106,7 +132,26 @@ class _MessageCardState extends State<MessageCard> {
                 bottomLeft: Radius.circular(30),
               ),
             ),
-            child: Text(widget.message.msg!),
+            child: widget.message.type == Type.text
+                ? Text(widget.message.msg)
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.message.msg,
+                      placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                      //spell:ignore Cupertino
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.image,
+                        size: 70,
+                      ),
+                    ),
+                  ),
           ),
         ),
       ],

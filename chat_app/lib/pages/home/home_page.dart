@@ -5,6 +5,7 @@ import 'package:chat_app/pages/profile/profile_page.dart';
 import 'package:chat_app/widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Apis.getSelfInfo();
+    // Apis.updateActiveStatus(true);
+    SystemChannels.lifecycle.setMessageHandler((message) {
+      if (Apis.auth.currentUser != null) {
+        if (message.toString().contains('resume')) {
+          Apis.updateActiveStatus(true);
+        }
+        if (message.toString().contains('pause')) {
+          Apis.updateActiveStatus(false);
+        }
+      }
+      return Future.value(message);
+    });
   }
 
   List<ChatUser> list = [];
@@ -65,10 +78,10 @@ class _HomePageState extends State<HomePage> {
                       search.clear();
 
                       for (var i in list) {
-                        if (i.name!
+                        if (i.name
                                 .toLowerCase()
                                 .contains(value.toLowerCase()) ||
-                            i.email!
+                            i.email
                                 .toLowerCase()
                                 .contains(value.toLowerCase())) {
                           search.add(i);
