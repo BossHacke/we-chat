@@ -89,9 +89,10 @@ class _ChatPageState extends State<ChatPage> {
                               },
                             );
                           } else {
+                            //Hùng text :))
                             return const Center(
                               child: Text(
-                                'hello',
+                                '',
                                 style: TextStyle(fontSize: 20),
                               ),
                             );
@@ -232,7 +233,13 @@ class _ChatPageState extends State<ChatPage> {
           MaterialButton(
             onPressed: () {
               if (_textController.text.isNotEmpty) {
-                Apis.sendMessage(widget.user, _textController.text, Type.text);
+                if (list.isEmpty) {
+                  Apis.sendFirstMessage(
+                      widget.user, _textController.text, Type.text);
+                } else {
+                  Apis.sendMessage(
+                      widget.user, _textController.text, Type.text);
+                }
                 _textController.text = '';
               }
             },
@@ -323,12 +330,16 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                     Text(
                       list.isNotEmpty
-                          ? list[0].lastActive
-                          : widget.user.lastActive,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.black54,
-                      ),
+                          ? list[0].isOnline
+                              ? 'Online'
+                              : MyDate.getLastActiveTime(
+                                  context: context,
+                                  lastActive: list[0].lastActive)
+                          : MyDate.getLastActiveTime(
+                              context: context,
+                              lastActive: widget.user.lastActive),
+                      style:
+                          const TextStyle(fontSize: 13, color: Colors.black54),
                     ),
                   ],
                 )
