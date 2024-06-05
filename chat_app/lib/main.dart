@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/pages/animation_login/animation_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_notification_channel/flutter_notification_channel.dart';
+import 'package:flutter_notification_channel/notification_importance.dart';
 
 late Size mq;
 void main() {
@@ -46,4 +50,12 @@ _initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  var result = await FlutterNotificationChannel().registerNotificationChannel(
+      description: 'For Showing Message Notification',
+      id: 'chats',
+      importance: NotificationImportance.IMPORTANCE_HIGH,
+      name: 'Chats');
+
+  log('\nNotification Channel Result: $result');
 }

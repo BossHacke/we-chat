@@ -43,7 +43,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'toId': instance.toId,
       'msg': instance.msg,
       'read': instance.read,
-      'type': instance.type!.name,
+      'type': instance.type.name,
       'fromId': instance.fromId,
       'sent': instance.sent,
     };

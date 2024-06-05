@@ -4,6 +4,7 @@ import 'package:chat_app/helper/my_date.dart';
 import 'package:chat_app/main.dart';
 import 'package:chat_app/model/model.dart';
 import 'package:chat_app/pages/chat/chat_page.dart';
+import 'package:chat_app/widgets/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,42 +39,46 @@ class _ChatUserCardState extends State<ChatUserCard> {
             stream: Apis.getLastMessage(widget.user),
             builder: (context, snapshot) {
               final data = snapshot.data?.docs;
-              final list = data
-                      ?.map(
-                        (e) => Message.fromJson(
-                          e.data(),
-                        ),
-                      )
-                      .toList() ??
-                  [];
-              if (list.isEmpty) {
+              final list =
+                  data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
+              if (list.isNotEmpty) {
                 _message = list[0];
               }
               return ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(mq.height * .03),
-                  child: CachedNetworkImage(
-                    width: mq.height * .055,
-                    height: mq.height * .055,
-                    imageUrl: widget.user.image!,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    //spell:ignore Cupertino
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => const CircleAvatar(
-                      child: Icon(CupertinoIcons.person),
+                leading: InkWell(
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => ProfileDialog(
+                      user: widget.user,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(mq.height * .03),
+                    child: CachedNetworkImage(
+                      width: mq.height * .055,
+                      height: mq.height * .055,
+                      imageUrl: widget.user.image,
+                      //spell:ignore Cupertino
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                        child: Icon(CupertinoIcons.person),
+                      ),
                     ),
                   ),
                 ),
-                title: Text(widget.user.name!),
+                title: Text(widget.user.name),
                 subtitle: Text(
-                  _message != null ? _message!.msg! : widget.user.about!,
+                  _message != null
+                      ? _message!.type == Type.image
+                          ? 'image'
+                          : _message!.msg
+                      : widget.user.about,
                   maxLines: 1,
                 ),
                 trailing: _message == null
                     ? null
-                    : _message!.read!.isEmpty &&
-                            _message!.fromId! != Apis.user.uid
+                    : _message!.read.isEmpty &&
+                            _message!.fromId != Apis.user.uid
                         ? Container(
                             width: 15,
                             height: 15,
@@ -84,7 +89,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                           )
                         : Text(
                             MyDate.getLastMessageTime(
-                                context: context, time: _message!.sent!),
+                                context: context, time: _message!.sent),
                             style: const TextStyle(color: Colors.black54),
                           ),
               );
